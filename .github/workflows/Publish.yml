@@ -2,7 +2,7 @@ name: Publish
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, publish ]
     
 jobs:
   build:
@@ -11,9 +11,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: Tencent/puerts
+          ref: master
       - name: Install Uploader
         run: |
           wget https://raw.githubusercontent.com/MoeClub/OneList/master/OneDriveUploader/amd64/linux/OneDriveUploader -O uploader
           chmod 777 ./uploader
           echo ${{ secrets.GITHUB_TOKEN }} > auth.json
+      - name: Download Dll
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: build.yml
+          name: Puerts_Unity_Plugins
+          path: ./unity/Assets/Plugins/
+          repo: Tencent/puerts
+      - name: Zip
+        run: |
+          $hash = git rev-parse HEAD
+          zip -q -r "puerts-unity-$hash.zip" ./unity/Assets
+          zip -q -r "puerts-unreal-$hash.zip" ./unreal
+      - name: Upload
+        run: |
+          .\uploader -s "puerts-unity-$hash.zip" -r tencent/puerts/unity
+          .\uploader -s "puerts-unreal-$hash.zip" -r tencent/puerts/unreal
+          
