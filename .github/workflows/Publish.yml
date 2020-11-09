@@ -35,7 +35,6 @@ jobs:
           zip -q -r "puerts-unreal-${{ github.sha }}.zip" ./unreal
       - name: Upload
         run: |
-          ls
           ./uploader -s ./puerts-unity-${{ github.sha }}.zip -r tencent/puerts/unity
           ./uploader -s ./puerts-unreal-${{ github.sha }}.zip -r tencent/puerts/unreal
           
