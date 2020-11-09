@@ -27,7 +27,7 @@ jobs:
           repo: Tencent/puerts
       - name: Zip
         run: |
-          $hash = git rev-parse HEAD
+          hash = git rev-parse HEAD
           zip -q -r "puerts-unity-$hash.zip" ./unity/Assets
           zip -q -r "puerts-unreal-$hash.zip" ./unreal
       - name: Upload
