@@ -28,8 +28,8 @@ jobs:
       - name: Zip
         run: |
           hash = git rev-parse HEAD
-          zip -q -r "puerts-unity-$hash.zip" ./unity/Assets
-          zip -q -r "puerts-unreal-$hash.zip" ./unreal
+          zip -q -r "puerts-unity-${{ github.ref }}.zip" ./unity/Assets
+          zip -q -r "puerts-unreal-${{ github.ref }}.zip" ./unreal
       - name: Upload
         run: |
           .\uploader -s "puerts-unity-$hash.zip" -r tencent/puerts/unity
