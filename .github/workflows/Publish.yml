@@ -17,7 +17,7 @@ jobs:
         run: |
           wget https://raw.githubusercontent.com/MoeClub/OneList/master/OneDriveUploader/amd64/linux/OneDriveUploader -O uploader
           chmod 777 ./uploader
-          echo ${{ secrets.GITHUB_TOKEN }} > auth.json
+          echo ${{ secrets.TOKEN }} > auth.json
       - name: Download Dll
         uses: dawidd6/action-download-artifact@v2
         with:
